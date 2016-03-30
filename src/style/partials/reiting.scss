@@ -7,7 +7,7 @@
 .reiting__button{
 
 }
-.reiting--input{ 
+.reiting--input{
 border-left: 1px solid #000;
 border-top: 1px solid #000;
 border-bottom: 1px solid #000;
@@ -33,5 +33,19 @@ color: #fff;
 }
 .reiting__table{
 	margin-top: 20px;
-	
+
+}
+
+
+.table_tringl--down{
+  display: inline-block;
+  background: url(../images/table_tringl_down.png);
+  width:10px;
+  height: 10px;
+  background-size: cover;
+       margin-left: 33px;
+    margin-right: 9px;
+    @media (max-width: $screen-sm-min) {
+            margin-left:10px;
+       }
 }
