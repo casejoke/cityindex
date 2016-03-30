@@ -18,67 +18,63 @@ var gulp          = require('gulp'),
     stripDebug    = require('gulp-strip-debug'),
     spritesmith   = require('gulp.spritesmith'),
     reload        = browserSync.reload;
-var pkg = require('./package.json');
-var version     = pkg.version;
-var name        = pkg.name;
-var browsers    = pkg.browsers;
+
+var pkg           = require('./package.json'),
+    version       = pkg.version,
+    name          = pkg.name,
+    browsers      = pkg.browsers;
 
 
 var path = {
-    build: { //Тут мы укажем куда складывать готовые после сборки файлы
-        html:    'www/',
-        js:      'www/assets/js/',
-        css:     'www/assets/css/',
-        images:  'www/assets/images/',
-        fonts:   'www/assets/fonts/',
-        fontBs:  'www/assets/fonts/bootstrap/',
-        sprite:  'www/assets/images/sprite/',
+    build: {    //Тут мы укажем куда складывать готовые после сборки файлы
+        html:   'www/',
+        js:     'www/assets/js/',
+        css:    'www/assets/css/',
+        images: 'www/assets/images/',
+        fonts:  'www/assets/fonts/',
+        fontBs: 'www/assets/fonts/bootstrap/',
+        sprite: 'www/assets/images/sprite/',
         spriteScss: 'src/style/'
     },
     prodaction: { //template
-        html:    'www/',
-        js:      '../catalog/view/theme/' + name + '/assets/js/',
-        css:     '../catalog/view/theme/' + name + '/assets/css/',
-        images:  '../catalog/view/theme/' + name + '/assets/images/',
-        fonts:   '../catalog/view/theme/' + name + '/assets/fonts/',
-        fontBs:  '../catalog/view/theme/' + name + '/assets/fonts/bootstrap/',
-        sprite:  '../catalog/view/theme/' + name + '/assets/images/sprite/',
+        html:   'www/',
+        js:     '../catalog/view/theme/' + name + '/assets/js/',
+        css:    '../catalog/view/theme/' + name + '/assets/css/',
+        images: '../catalog/view/theme/' + name + '/assets/images/',
+        fonts:  '../catalog/view/theme/' + name + '/assets/fonts/',
+        fontBs: '../catalog/view/theme/' + name + '/assets/fonts/bootstrap/',
+        sprite: '../catalog/view/theme/' + name + '/assets/images/sprite/',
         spriteScss: 'src/style/'
-    }
-
-    ,
-    src: { //Пути откуда брать исходники
-        html:    'src/html/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-        js:  [
-                 'bower_components/modernizr/modernizr.js',
-                 'bower_components/jquery/dist/jquery.js',
-
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js',
-                 'bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js',
-                  'bower_components/jquery-ui/jquery-ui.js',
-                  'src/js/partials/jquery.ui.datepicker-ru.js',
-
-
-                 'src/js/main.js'
-              ]   ,//В стилях и скриптах нам понадобятся только main файлы
-        style:   'src/style/styles.scss',
-        images:  'src/images/**/*.*', //Синтаксис images/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
-        fonts:   'src/fonts/**/*.*',
-        fontsBs: 'bower_components/bootstrap-sass/assets/fonts/bootstrap/*.*',
-        fontsAwesome: 'bower_components/components-font-awesome/fonts/*.*' ,
-        sprite:   'src/sprite/*.*'
     },
-    watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
+    src: {        //Пути откуда брать исходники
+        html:   'src/html/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
+        js:  [
+                'bower_components/modernizr/modernizr.js',
+                'bower_components/jquery/dist/jquery.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js',
+                'bower_components/jquery-ui/jquery-ui.js',
+                'src/js/partials/jquery.ui.datepicker-ru.js',
+                'src/js/main.js'
+              ],  //В стилях и скриптах нам понадобятся только main файлы
+        style:        'src/style/styles.scss',
+        images:       'src/images/**/*.*', //Синтаксис images/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
+        fonts:        'src/fonts/**/*.*',
+        fontsBs:      'bower_components/bootstrap-sass/assets/fonts/bootstrap/*.*',
+        fontsAwesome: 'bower_components/components-font-awesome/fonts/*.*' ,
+        sprite:       'src/sprite/*.*'
+    },
+    watch: {      //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
         html:    'src/html/*.html',
         js:      'src/js/**/*.js',
         style:   'src/style/**/*.scss',
@@ -86,7 +82,7 @@ var path = {
         fonts:   'src/fonts/**/*.*',
         sprite:  'src/sprite/*.*'
     },
-    clean: './www/assets'
+    clean:       './www/assets'
 };
 
 var config = {
@@ -138,8 +134,9 @@ gulp.task('js:build', function () {
     gulp.src(path.src.js) //Найдем наш main файл
         .pipe(concat('main.js'))
         .pipe(stripDebug())
-        .pipe(uglify())
         .pipe(gulp.dest(path.prodaction.js)) //Выплюнем готовый файл в build
+        .pipe(uglify())
+        .pipe(gulp.dest(path.prodaction.min.js)) //Выплюнем готовый файл в build
         .pipe(notify({
             title: 'js',
             message: 'js build Complide'
